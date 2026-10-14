@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>$MPB · Help Torchy get his hair back</title>
+<meta name="description" content="$MPB — Male Pattern Baldness. Help Torchy get his hair back! More burns. More hair.">
+<meta property="og:title" content="$MPB · Help Torchy get his hair back">
+<meta property="og:description" content="More burns. More hair.">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta property="og:image" content="https://mpbcoin.com/img/logo-512.png">
+<meta property="og:url" content="https://mpbcoin.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mpbcoin.com/img/logo-512.png">
+<meta name="theme-color" content="#060a07">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060a07; --bg2:#0b120d; --card:#0f1811; --line:#1c2b20;
+    --fg:#eefbe9; --muted:#8fa594;
+    --g1:#3dff7a; --g2:#1fd160; --g3:#0f8f3c; --skin:#7fe36a; --skin2:#5cc24c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;line-height:1.5;overflow-x:hidden}
+  h1,h2,h3,.display{font-family:"Bricolage Grotesque",Inter,sans-serif;letter-spacing:-.03em;line-height:1}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1160px,100%);margin:0 auto;padding:0 20px}
+
+  /* background embers */
+  #embers{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .bgglow{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(60% 50% at 70% 30%,rgba(61,255,122,.10),transparent 70%),
+               radial-gradient(40% 40% at 10% 90%,rgba(31,209,96,.08),transparent 70%)}
+  main,header,footer{position:relative;z-index:1}
+
+  /* nav */
+  header{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(6,10,7,.65);border-bottom:1px solid var(--line);z-index:10}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:24px;display:flex;align-items:center;gap:8px}
+  .logo b{color:var(--g1)}
+  .logo img{width:36px;height:36px;border-radius:50%;box-shadow:0 0 14px rgba(61,255,122,.35)}
+  .links{display:flex;gap:28px;font-size:15px;color:var(--muted)}
+  .links a{transition:color .2s}.links a:hover{color:var(--fg)}
+  @media(max-width:640px){.links{display:none}}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;padding:clamp(16px,3vh,48px) 0;min-height:calc(100svh - 64px)}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:32px;min-height:0;text-align:center}}
+  .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g1);
+    border:1px solid rgba(61,255,122,.3);background:rgba(61,255,122,.06);padding:6px 12px;border-radius:99px}
+  .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--g1);box-shadow:0 0 12px var(--g1);animation:pulse 1.6s infinite}
+  .hero h1{font-size:clamp(40px,min(6.6vw,10.5vh),92px);font-weight:800;margin:clamp(12px,2.2vh,22px) 0 clamp(10px,1.8vh,18px)}
+  .hero h1 .hl{background:linear-gradient(100deg,var(--g1),#c8ffb0 45%,var(--g1));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+  .tagline{font-size:clamp(18px,min(2.4vw,3.4vh),28px);color:var(--muted);font-family:"Bricolage Grotesque";font-weight:500}
+  .tagline span{color:var(--fg)}
+
+  .stats{margin-top:clamp(16px,3.5vh,36px);background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:22px;padding:22px;max-width:520px}
+  @media(max-width:900px){.stats{margin-inline:auto;text-align:left}}
+  .row{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
+  .big{font-size:clamp(34px,min(5vw,7vh),58px);font-weight:800;color:var(--g1);text-shadow:0 0 30px rgba(61,255,122,.35)}
+  .lbl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+  .stats-top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:stretch}
+  .st-side{display:grid;gap:12px;align-content:space-between;text-align:right;border-left:1px solid var(--line);padding-left:18px}
+  .val{font-family:"Bricolage Grotesque";font-weight:800;font-size:22px;line-height:1.1;margin-top:4px}
+  .val small{color:var(--muted);font-weight:500;font-size:15px}
+  .bar{height:14px;border-radius:99px;background:#132017;margin:18px 0 10px;overflow:hidden;border:1px solid var(--line)}
+  .bar>div{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--g3),var(--g1));box-shadow:0 0 18px rgba(61,255,122,.6);transition:width 1.6s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden}
+  .bar>div::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-100%);animation:sweep 2.4s 1.6s infinite}
+  .next{font-size:14px;color:var(--muted)}
+  .next b{color:var(--fg)}
+  .badge{display:inline-block;margin-top:12px;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:4px 8px}
+
+  .stage-wrap{position:relative;display:grid;place-items:center}
+  .stage-wrap::before{content:"";position:absolute;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(61,255,122,.22),transparent 65%);animation:breathe 5s ease-in-out infinite}
+  #hero-torchy{width:min(520px,100%);position:relative;filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));animation:float 6s ease-in-out infinite}
+  #hero-torchy svg{width:100%;height:auto;display:block}
+  .levelup{position:absolute;top:8%;left:50%;transform:translateX(-50%);font-family:"Bricolage Grotesque";font-weight:800;font-size:22px;color:var(--g1);opacity:0;pointer-events:none;white-space:nowrap}
+  .levelup.go{animation:levelup 1.4s ease-out}
+
+  /* sections */
+  section{padding:100px 0}
+  .sec-head{max-width:640px;margin-bottom:44px}
+  .sec-head h2{font-size:clamp(36px,5vw,58px);font-weight:800;margin:14px 0}
+  .sec-head p{color:var(--muted);font-size:18px}
+
+  .ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  @media(max-width:900px){.ladder{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:520px){.ladder{grid-template-columns:repeat(2,1fr)}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 12px 14px;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-4px);border-color:rgba(61,255,122,.5);box-shadow:0 14px 40px rgba(61,255,122,.12)}
+  .card svg{width:100%;height:auto;display:block}
+  .card .n{font-family:"Bricolage Grotesque";font-weight:800;font-size:18px;display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+  .card .t{font-size:13px;color:var(--g1);font-weight:600}
+  .card .d{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.35}
+  .card .pic{position:relative;width:100%;aspect-ratio:400/440;border-radius:12px;overflow:hidden;display:block}
+  .card .pic img{width:100%;height:100%;object-fit:cover;display:block}
+  .card.locked{cursor:default}
+  .card.locked:hover{transform:none;border-color:var(--line);box-shadow:none}
+  .card.locked::after{content:"🔒";position:absolute;top:10px;right:12px;font-size:14px;opacity:.7}
+  .card .pic.mys{background:radial-gradient(circle at 50% 45%,#132a18,#0a120c 70%);display:grid;place-items:center}
+  @media(max-width:520px){.card:not(.final) .pic.mys{aspect-ratio:4/3}}
+  .mys b{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(40px,7vw,64px);color:#1f3a25}
+  .card.next .pic img{filter:blur(10px) brightness(.35) saturate(.6);transform:scale(1.15)}
+  .card.next .pic b{position:absolute;inset:0;display:grid;place-items:center;font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(46px,8vw,72px);color:var(--g1);text-shadow:0 0 24px rgba(61,255,122,.6);animation:pulse 2.4s infinite}
+  .card.next{border-color:rgba(61,255,122,.35)}
+  .card.next::before{content:"NEXT";position:absolute;top:10px;left:12px;font-size:11px;font-weight:700;letter-spacing:.1em;border:1px solid var(--g1);color:var(--g1);padding:1px 6px;border-radius:6px;z-index:1}
+  .card.final{border-color:rgba(200,255,176,.35);background:linear-gradient(160deg,#16301b,var(--card) 60%)}
+  .card.final .mys{background:radial-gradient(circle at 50% 40%,rgba(61,255,122,.25),#0a120c 70%)}
+  .card.final .mys b{color:var(--g1);text-shadow:0 0 30px rgba(61,255,122,.7)}
+  .card.final .t{color:#c8ffb0}
+  @media(max-width:520px){.card.final{grid-column:span 2}.card.final .pic{aspect-ratio:2.1/1}}
+  .card.current{border-color:var(--g1);box-shadow:0 0 0 1px var(--g1),0 0 40px rgba(61,255,122,.25)}
+  .card.current::before{content:"NOW";position:absolute;top:10px;left:12px;font-size:11px;font-weight:700;letter-spacing:.1em;background:var(--g1);color:#04210d;padding:2px 7px;border-radius:6px;z-index:1}
+  .card.selected{outline:2px solid #c8ffb0;outline-offset:2px}
+  .card.target,.card.locked.target{border-color:var(--g1);box-shadow:0 0 0 1px var(--g1),0 0 34px rgba(61,255,122,.28);transform:none}
+  .card.target .pic.mys b{color:var(--g1);text-shadow:0 0 22px rgba(61,255,122,.6)}
+  .card{-webkit-tap-highlight-color:transparent}
+  .card.locked{cursor:pointer}
+  .card.locked:hover{transform:none;border-color:rgba(61,255,122,.3)}
+  .tcap{margin-top:16px;min-height:22px;font-size:15px;color:var(--muted)}
+  .tcap b{color:var(--g1)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:800px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px}
+  .step .num{font-family:"Bricolage Grotesque";font-weight:800;font-size:48px;color:var(--g1);opacity:.9}
+  .step h3{font-size:24px;margin:10px 0 8px}
+  .step p{color:var(--muted)}
+
+  .halving{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,4vw,28px)}
+  .halving h3{font-size:24px;margin-bottom:6px}
+  .halving p{color:var(--muted);margin-bottom:22px;max-width:720px}
+  .hbars{display:flex;align-items:flex-end;gap:clamp(3px,.8vw,6px);height:clamp(120px,22vw,180px)}
+  .hbars div{flex:1;background:linear-gradient(180deg,var(--g1),var(--g3));border-radius:6px 6px 2px 2px;min-height:3px;transform-origin:bottom;transform:scaleY(0);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+  .hbars.in div{transform:scaleY(1)}
+  .hbars div{cursor:pointer;opacity:.35}
+  .hbars div.reached{opacity:1}
+  .hbars div.nextbar{opacity:.75;animation:pulse 2s infinite}
+  .hbars div.target{opacity:1;animation:none;background:linear-gradient(180deg,#c8ffb0,var(--g1));box-shadow:0 0 18px rgba(61,255,122,.55)}
+  .hlabels span.target{color:var(--g1);font-weight:700}
+  .hbars div{-webkit-tap-highlight-color:transparent}
+  .hlabels{display:flex;gap:clamp(3px,.8vw,6px);margin-top:8px}
+  .hlabels span{flex:1;text-align:center;font-size:clamp(9px,1.6vw,11px);color:var(--muted)}
+  .hends{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:13px;color:var(--muted)}
+  .hends span:last-child{text-align:right}
+  .hends b{color:var(--fg)}
+  .hcap{margin-top:12px;font-size:14px;color:var(--muted);min-height:20px}
+  .hcap b{color:var(--g1)}
+
+  .cta{text-align:center;padding:110px 0}
+  .cta h2{font-size:clamp(42px,7vw,88px);font-weight:800}
+  .cta p{color:var(--muted);font-size:20px;margin-top:14px}
+  .ca{margin:28px auto 0;display:none;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 10px 10px 16px;max-width:100%;font-family:ui-monospace,monospace;font-size:14px}
+  .ca.show{display:inline-flex}
+  .ca span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ca button{background:var(--g1);color:#04210d;border:0;border-radius:9px;padding:8px 14px;font-weight:700;cursor:pointer}
+
+  footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:13px}
+  footer p+p{margin-top:8px}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  .hero .rv{transition-delay:var(--d,0s)}
+
+  /* photo scene (hairstyle 1) */
+  #hero-torchy.photo{width:min(760px,124%,calc((100svh - 64px) * 1.12));animation:none;filter:none;margin:-5% -12%}
+  @media(max-width:900px){#hero-torchy.photo{width:min(100%,560px);margin:-4% auto -8%}}
+  @media(max-width:900px){.hero .stage-wrap{order:-1}}
+  .scene{position:relative;aspect-ratio:1;overflow:hidden;
+    -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 46%,#000 56%,rgba(0,0,0,.55) 78%,transparent 99%);
+            mask-image:radial-gradient(ellipse 50% 50% at 50% 46%,#000 56%,rgba(0,0,0,.55) 78%,transparent 99%)}
+  .scene img{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none}
+  .scene .lid{position:absolute;left:34.848%;top:33.652%;width:36.124%;height:23.285%;opacity:0;pointer-events:none}
+  .scene .lid.on{opacity:1}
+  .scene canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .scene .tw{position:absolute;width:1.4%;aspect-ratio:1;margin:-.7% 0 0 -.7%;border-radius:50%;pointer-events:none;mix-blend-mode:screen;
+    background:radial-gradient(circle,#fff 0 18%,rgba(200,255,220,.55) 30%,transparent 70%);opacity:0;animation:tw 4s ease-in-out infinite}
+  .scene .tw::before,.scene .tw::after{content:"";position:absolute;left:50%;top:50%;width:260%;height:2px;margin:-1px 0 0 -130%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent)}
+  .scene .tw::after{transform:rotate(90deg)}
+  @keyframes tw{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:.95;transform:scale(1)}60%{opacity:.6;transform:scale(.8)}}
+
+  /* torchy parts */
+  .fl{transform-box:fill-box;transform-origin:50% 100%;animation:flick 1.3s ease-in-out infinite alternate}
+  .mini .fl{animation:none}
+  .eye{transform-box:fill-box;transform-origin:50% 50%;animation:blink 5s infinite}
+  .flame-in{animation:pop .6s cubic-bezier(.3,1.6,.5,1) both}
+
+  @keyframes flick{0%{transform:scaleY(1) skewX(0)}50%{transform:scaleY(1.1) skewX(3deg)}100%{transform:scaleY(.92) skewX(-3deg)}}
+  @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+  @keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes float{50%{transform:translateY(-14px)}}
+  @keyframes breathe{50%{transform:scale(1.1);opacity:.7}}
+  @keyframes shine{to{background-position:-200% 0}}
+  @keyframes pulse{50%{opacity:.35}}
+  @keyframes sweep{to{transform:translateX(100%)}}
+  @keyframes levelup{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}20%{opacity:1;transform:translate(-50%,0) scale(1.05)}100%{opacity:0;transform:translate(-50%,-40px) scale(1)}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="bgglow"></div>
+<canvas id="embers"></canvas>
+
+<!-- shared gradients for all Torchy SVGs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gFlame" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#0f8f3c"/><stop offset=".55" stop-color="#1fd160"/><stop offset="1" stop-color="#7dffa8"/>
+    </linearGradient>
+    <linearGradient id="gFlameIn" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#7dffa8"/><stop offset="1" stop-color="#eaffe0"/>
+    </linearGradient>
+    <radialGradient id="gSkin" cx=".4" cy=".35" r=".75">
+      <stop offset="0" stop-color="#9cf088"/><stop offset=".7" stop-color="#76dc62"/><stop offset="1" stop-color="#4fb43f"/>
+    </radialGradient>
+    <linearGradient id="gHood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d1f1e"/><stop offset="1" stop-color="#0a0b0b"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap"><nav>
+    <a class="logo" href="#top"><img src="img/logo-96.webp" alt="" width="36" height="36"> <span><b>$</b>MPB</span></a>
+    <div class="links"><a href="#torchy">Torchy</a><a href="#hairstyles">Hair levels</a><a href="#how">How it works</a></div>
+  </nav></div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero" id="torchy">
+      <div>
+        <span class="eyebrow rv" style="--d:.05s"><i></i>$MPB · Male Pattern Baldness</span>
+        <h1 class="rv" style="--d:.15s">Help Torchy get his <span class="hl">hair back!</span></h1>
+        <p class="tagline rv" style="--d:.25s">More burns. <span>More hair.</span></p>
+
+        <div class="stats rv" style="--d:.4s">
+          <div class="stats-top">
+            <div>
+              <div class="lbl">Supply burned</div>
+              <div class="big display" id="burned">0 %</div>
+            </div>
+            <div class="st-side">
+              <div><div class="lbl">Hair level</div><div class="val"><span id="stage">1</span> <small>/ 15</small></div></div>
+              <div><div class="lbl">Tokens burned</div><div class="val" id="tokens">—</div></div>
+            </div>
+          </div>
+          <div class="bar" role="progressbar" aria-label="Progress to next hair level"><div id="bar"></div></div>
+          <div class="next" id="next">Next hair level at <b>0.0122 %</b></div>
+          <span class="badge" id="badge">Live burn tracker coming soon</span>
+        </div>
+      </div>
+      <div class="stage-wrap rv" style="--d:.2s">
+        <div id="hero-torchy"></div>
+        <div class="levelup" id="levelup">+ HAIR UNLOCKED 🔥</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="hairstyles">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow"><i></i>15 hair levels</span>
+        <h2>From chrome dome to mythical mane.</h2>
+      </div>
+      <div class="ladder" id="ladder"></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow"><i></i>How it works</span>
+        <h2>Burns grow hair.</h2>
+      </div>
+      <div class="steps">
+        <div class="step rv"><div class="num">01</div><h3>Tokens get burned</h3><p>$MPB tokens are sent out of circulation for good.</p></div>
+        <div class="step rv" style="transition-delay:.1s"><div class="num">02</div><h3>The % goes up</h3><p>Every burn moves the % closer to the next level.</p></div>
+        <div class="step rv" style="transition-delay:.2s"><div class="num">03</div><h3>Torchy grows</h3><p>Hit a milestone and Torchy grows more flame hair.</p></div>
+      </div>
+      <div class="halving rv">
+        <h3>Every level doubles</h3>
+        <p>Each hair level takes twice the burn of the one before. The first levels come fast. The last ones are legendary.</p>
+        <div class="hbars" id="hbars"></div>
+        <div class="hlabels" id="hlabels"></div>
+        <div class="hcap" id="hcap"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta wrap rv">
+    <h2>Forget the moon.<br><span class="hl" style="background:linear-gradient(100deg,var(--g1),#c8ffb0 45%,var(--g1));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite">Torchy already has one.</span></h2>
+    <p>Help him cover it. He's counting on you.</p>
+    <div class="ca" id="ca"><span id="ca-text"></span><button id="ca-copy">Copy CA</button></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>$MPB</b> · Male Pattern Baldness · Torchy 🔥</p>
+    <p>Not financial advice. 100 % burned is a symbolic, mythical end goal — not a promise, prediction or timeline. Milestones are not a forecast of how fast burns happen.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- config ---------- */
+const THRESHOLDS = [0]; // hairstyle 1 = 0 %
+for (let j = 2; j <= 15; j++) THRESHOLDS.push(100 / Math.pow(2, 15 - j));
+
+const DESCRIPTIONS = [
+  "Chrome dome. Little side flames.",
+  "One tiny sprout on top.",
+  "Three brave little flames.",
+  "A small tuft on the crown.",
+  "A proper patch at the back.",
+  "The patch spreads forward.",
+  "A thin stripe down the middle.",
+  "The stripe reaches the front.",
+  "A baby quiff appears.",
+  "Fuller quiff, thicker top.",
+  "Wider, taller — temples filling in.",
+  "A tall, wild flame-do.",
+  "A huge flame mane.",
+  "An almost perfect mane.",
+  "The mythical, complete mane."
+];
+
+/* ---------- Torchy SVG generator ---------- */
+function rand(seed){ let s = seed * 9301 + 49297; return () => (s = (s * 9301 + 49297) % 233280) / 233280; }
+
+function flame(x, y, h, w, rot, delay, extraCls=""){
+  const p = `M${-w/2} 0 C${-w/2} ${-h*.45} ${-w*.18} ${-h*.62} 0 ${-h} C${w*.12} ${-h*.66} ${w/2} ${-h*.48} ${w/2} 0 Q0 ${w*.3} ${-w/2} 0Z`;
+  const wi = w*.5, hi = h*.55;
+  const pi = `M${-wi/2} 0 C${-wi/2} ${-hi*.45} ${-wi*.18} ${-hi*.62} 0 ${-hi} C${wi*.12} ${-hi*.66} ${wi/2} ${-hi*.48} ${wi/2} 0 Q0 ${wi*.3} ${-wi/2} 0Z`;
+  return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)})"><g class="fl ${extraCls}" style="animation-delay:${delay.toFixed(2)}s"><path d="${p}" fill="url(#gFlame)"/><path d="${pi}" fill="url(#gFlameIn)" opacity=".85"/></g></g>`;
+}
+
+// per hairstyle: [spread (0..1 of top arc), count, height]
+const HAIR = [
+  [0,0,0],[0,1,20],[.5,3,18],[.12,4,26],[.22,6,30],[.34,8,34],[.14,7,36],
+  [.2,9,42],[.3,10,46],[.44,13,54],[.6,16,64],[.74,19,78],[.86,22,94],[.95,25,110],[1,28,128]
+];
+
+function torchy(stage, mini=false){
+  const s = Math.max(1, Math.min(15, stage));
+  const k = 1 - .1 * (s - 1) / 14;               // gradually slimmer
+  const cx = 200, cy = 222, rx = 108 * (1 - .06*(s-1)/14), ry = 102;
+  const r = rand(s * 7 + 3);
+  let out = `<svg viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg" class="${mini?'mini':''}" role="img" aria-label="Torchy, hairstyle ${s} of 15">`;
+
+  // hoodie body
+  const bw = 135 * k;
+  out += `<path d="M${cx-bw} 440 C${cx-bw} 360 ${cx-bw*.6} 318 ${cx} 316 C${cx+bw*.6} 318 ${cx+bw} 360 ${cx+bw} 440Z" fill="url(#gHood)"/>`;
+  out += `<path d="M${cx-62*k} 322 Q${cx} 360 ${cx+62*k} 322" fill="none" stroke="#2a2d2b" stroke-width="6" stroke-linecap="round"/>`;
+  out += `<line x1="${cx-18}" y1="338" x2="${cx-22}" y2="372" stroke="#2f3331" stroke-width="3" stroke-linecap="round"/><line x1="${cx+18}" y1="338" x2="${cx+22}" y2="372" stroke="#2f3331" stroke-width="3" stroke-linecap="round"/>`;
+  out += flame(cx, 418, 34, 26, 0, .2);  // chest icon
+
+  // side + back flames (always)
+  const side = [[-.92,-.18,24,15,-38],[-.98,.02,20,13,-55],[-.8,-.42,18,13,-22]];
+  const temple = s >= 11 ? (s - 10) : 0;
+  side.forEach(([u,v,h,w,rot],i)=>{
+    const g = 1 + temple*.12;
+    out += flame(cx + u*rx, cy + v*ry, h*g, w*g, rot, i*.17);
+    out += flame(cx - u*rx, cy + v*ry, h*g, w*g, -rot, i*.17+.3);
+  });
+  for (let t = 0; t < temple; t++){
+    const a = .62 - t*.05;
+    out += flame(cx - a*rx, cy - .78*ry, 20+t*6, 14+t*2, -24, t*.11);
+    out += flame(cx + a*rx, cy - .78*ry, 20+t*6, 14+t*2, 24, t*.11+.2);
+  }
+
+  // headphone band (behind head top)
+  out += `<path d="M${cx-rx+8} ${cy+4} C${cx-rx} ${cy-150} ${cx+rx} ${cy-150} ${cx+rx-8} ${cy+4}" fill="none" stroke="#121413" stroke-width="15" stroke-linecap="round"/>`;
+
+  // head
+  out += `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#gSkin)"/>`;
+  out += `<ellipse cx="${cx-38}" cy="${cy-58}" rx="34" ry="16" fill="#fff" opacity=".18" transform="rotate(-18 ${cx-38} ${cy-58})"/>`;
+  // cheeks (keep them round!)
+  out += `<circle cx="${cx-62}" cy="${cy+30}" r="20" fill="#4fb43f" opacity=".55"/><circle cx="${cx+62}" cy="${cy+30}" r="20" fill="#4fb43f" opacity=".55"/>`;
+  // eyes
+  out += `<g class="eye"><ellipse cx="${cx-36}" cy="${cy-6}" rx="17" ry="20" fill="#fff"/><circle cx="${cx-32}" cy="${cy-2}" r="9" fill="#0b0d0c"/><circle cx="${cx-29}" cy="${cy-6}" r="3" fill="#fff"/></g>`;
+  out += `<g class="eye"><ellipse cx="${cx+36}" cy="${cy-6}" rx="17" ry="20" fill="#fff"/><circle cx="${cx+40}" cy="${cy-2}" r="9" fill="#0b0d0c"/><circle cx="${cx+43}" cy="${cy-6}" r="3" fill="#fff"/></g>`;
+  // brows: worried when bald, confident later
+  const bt = s < 6 ? 8 : s < 11 ? 0 : -6;
+  out += `<path d="M${cx-54} ${cy-36+bt*.4} Q${cx-36} ${cy-44-bt} ${cx-18} ${cy-38}" fill="none" stroke="#2b5a24" stroke-width="5" stroke-linecap="round"/>`;
+  out += `<path d="M${cx+18} ${cy-38} Q${cx+36} ${cy-44-bt} ${cx+54} ${cy-36+bt*.4}" fill="none" stroke="#2b5a24" stroke-width="5" stroke-linecap="round"/>`;
+  // mouth: bigger smile as hair grows
+  const sm = 8 + s * 1.6;
+  out += `<path d="M${cx-26} ${cy+40} Q${cx} ${cy+40+sm} ${cx+26} ${cy+40}" fill="${s>8?'#1c3a17':'none'}" stroke="#1c3a17" stroke-width="5" stroke-linecap="round"/>`;
+
+  // headphone cups
+  [[-1],[1]].forEach(([d])=>{
+    const x = cx + d*(rx - 2);
+    out += `<rect x="${x-18}" y="${cy-30}" width="36" height="66" rx="16" fill="#121413"/><rect x="${x-11}" y="${cy-20}" width="22" height="46" rx="10" fill="#1d201f" stroke="#3dff7a" stroke-width="2.5" opacity=".95"/>`;
+  });
+
+  // top hair
+  const [spread, count, h] = HAIR[s-1];
+  for (let i = 0; i < count; i++){
+    const u = count === 1 ? 0 : (i/(count-1))*2 - 1;            // -1..1
+    const jit = (r() - .5) * (s === 3 ? .5 : .12);
+    const ang = (u * spread * 68 + jit*60) * Math.PI/180;         // degrees from top
+    const x = cx + Math.sin(ang) * rx * .96;
+    const y = cy - Math.cos(ang) * ry * .96 + 4;
+    const hh = h * (1 - .38*Math.abs(u)*spread) * (.85 + r()*.3);
+    const ww = Math.max(13, hh * .5);
+    out += flame(x, y, hh, ww, ang*180/Math.PI*.7 + (r()-.5)*8, r()*1.2);
+  }
+  // front quiff from hairstyle 9
+  if (s >= 9){
+    const qh = h * (1.05 + (s-9)*.03), qw = Math.max(26, qh*.55);
+    out += flame(cx - 18, cy - ry*.93 + 8, qh, qw, 16, .4);
+  }
+  return out + `</svg>`;
+}
+
+/* ---------- helpers ---------- */
+const fmt = (v) => {
+  if (v === 0) return "0";
+  const d = v < .1 ? 4 : v < 1 ? 3 : v < 10 ? 2 : 1;
+  return v.toLocaleString("en-US", {maximumFractionDigits: d});
+};
+const stageFor = (b) => { let s = 1; THRESHOLDS.forEach((t,i)=>{ if (b >= t) s = i+1; }); return s; };
+
+/* ---------- render ---------- */
+const heroEl = document.getElementById("hero-torchy");
+let shownStage = 0;
+const STARS = [[36.36,5.26],[70.81,5.1],[64.35,3.83],[24.4,3.27],[32.22,9.49],[50.08,1.28],[17.78,10.93],[7.81,29.67],[65.47,9.97],[90.59,3.83],[5.34,14.75],[38.52,11.0],[15.47,1.04],[42.19,1.75],[16.83,5.82],[97.37,8.21]];
+function photoScene(){
+  const stars = STARS.map(([x,y],i)=>`<span class="tw" style="left:${x}%;top:${y}%;animation-delay:${(i*1.7)%7}s;animation-duration:${3.5+(i%5)*.9}s"></span>`).join("");
+  return `<div class="scene" role="img" aria-label="Torchy, hairstyle 1 of 15">
+    <img src="img/torchy-1.webp" alt="" width="1254" height="1254" fetchpriority="high">
+    <canvas class="gl"></canvas>
+    <img class="lid" data-lid="half" src="img/torchy-1-eyes-half.webp" alt="">
+    <img class="lid" data-lid="closed" src="img/torchy-1-eyes-closed.webp" alt="">
+    <canvas class="flames"></canvas>
+    <canvas class="sky"></canvas>${stars}
+  </div>`;
+}
+/* living scene — one WebGL pass: flame tips lick upward, aurora waves, lake ripples, chest breathes */
+let flameRAF = 0;
+const SCENE_FS = `
+precision mediump float;
+uniform sampler2D u_img; uniform sampler2D u_mask; uniform float u_t; uniform float u_b; varying vec2 v_uv;
+float ell(vec2 p, vec2 c, vec2 r){ vec2 d=(p-c)/r; float f=clamp(1.0-dot(d,d),0.0,1.0); return f*f*(3.0-2.0*f); }
+void main(){
+  vec2 p = v_uv*1254.0; vec2 off = vec2(0.0); float t = u_t;
+  // side flames: tips only, roots stay put
+  float af = max(max(7.0*ell(p,vec2(360.,292.),vec2(58.,74.)), 7.0*ell(p,vec2(426.,318.),vec2(42.,52.))), 6.0*ell(p,vec2(914.,420.),vec2(46.,66.)));
+  float fl = .75 + .25*sin(t*7.3)*sin(t*3.1+1.0);
+  off.x += af*fl*(sin(p.y*.045+t*5.2)*.65 + sin(p.y*.11-t*8.3+p.x*.03)*.35);
+  off.y += af*fl*.9*(.5+.5*sin(p.x*.06+p.y*.02+t*6.1));
+  // aurora: open sky only (fades out at the mountains and around Torchy)
+  vec2 hq = (p-vec2(600.,560.))/vec2(440.,420.);
+  float wa = (1.0-smoothstep(260.,380.,p.y)) * smoothstep(1.0,1.3,dot(hq,hq));
+  off.x += 5.0*wa*sin(p.y*.010 + t*.35 + 2.0*sin(p.x*.004 + t*.16));
+  off.y += 2.0*wa*sin(p.x*.006 - t*.28);
+  // lake (right side, clear of the hoodie)
+  float wl = smoothstep(1030.,1100.,p.x) * smoothstep(600.,660.,p.y) * (1.0-smoothstep(960.,1030.,p.y))
+           + (1.0-smoothstep(90.,150.,p.x)) * smoothstep(665.,690.,p.y) * (1.0-smoothstep(740.,770.,p.y));
+  off.x += 2.2*wl*sin(p.y*.33 + t*2.2);
+  // breathing: only Torchy (mask) — seat stays put, shoulders + head rise, chest widens
+  float M = texture2D(u_mask, v_uv).r;
+  vec2 d = p - vec2(640.,1090.);                                   // expand from the belly outward
+  off += -M * d * .013 * u_b * ell(p,vec2(640.,1010.),vec2(620.,330.));
+  off.y += M * 3.0 * u_b * ell(p,vec2(640.,790.),vec2(600.,150.)); // shoulders lift slightly
+  off.y += M * 1.2 * u_b * (1.0 - smoothstep(700.,820.,p.y));      // head barely follows
+  vec4 c = texture2D(u_img, clamp((p+off)/1254.0, 0.0, 1.0));
+  float aur = wa * smoothstep(.04,.22, c.g - max(c.r,c.b)*.8);           // only the green aurora itself
+  float sweep = .5 + .5*sin(p.x*.006 - t*.35 + 1.5*sin(p.y*.01 + t*.2)); // slow light travelling along the bands
+  float rays = .5 + .5*sin(p.x*.055 + t*.9 + sin(p.x*.013 - t*.4)*2.0);  // soft vertical ray shimmer
+  c.rgb += c.rgb * aur * (.13*sweep + .05*rays) * vec3(.4,1.0,.6);
+  float lum = dot(c.rgb, vec3(.3,.6,.1));
+  c.rgb += wl * smoothstep(.3,.75,lum) * .14 * max(0.0, sin(p.y*.6 + p.x*.015 - t*3.0));
+  gl_FragColor = c;
+}`;
+function startFlames(){
+  cancelAnimationFrame(flameRAF);
+  const cv = heroEl.querySelector("canvas.gl"), sp = heroEl.querySelector("canvas.flames"), img = heroEl.querySelector(".scene img");
+  if (!cv || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const gl = cv.getContext("webgl", {premultipliedAlpha:false, alpha:true});
+  if (!gl) return;                                   // no WebGL -> still image stays visible
+  const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, "attribute vec2 a;varying vec2 v_uv;void main(){v_uv=vec2((a.x+1.)*.5,(1.-a.y)*.5);gl_Position=vec4(a,0.,1.);}"));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, SCENE_FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+  gl.useProgram(prog);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, "a"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const uT = gl.getUniformLocation(prog, "u_t"), uB = gl.getUniformLocation(prog, "u_b");
+  gl.uniform1i(gl.getUniformLocation(prog, "u_img"), 0); gl.uniform1i(gl.getUniformLocation(prog, "u_mask"), 1);
+  const lids = heroEl.querySelectorAll(".scene .lid");
+  const mk = (unit, source) => { const tx = gl.createTexture(); gl.activeTexture(gl.TEXTURE0+unit); gl.bindTexture(gl.TEXTURE_2D, tx);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    if (source) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+    else gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0,0,0,255])); };
+  mk(1, null);                                        // no breathing until the mask arrives
+  const maskImg = new Image(); maskImg.onload = () => mk(1, maskImg); maskImg.src = "img/torchy-1-mask.webp";
+  const sctx = sp.getContext("2d"), sparks = [], tips = [[362,250],[430,296],[896,374]];
+  let last = 0, nextSpark = 0, ready = false;
+  const go = () => {
+    mk(0, img);
+    ready = true;
+  };
+  const loop = (now) => {
+    flameRAF = requestAnimationFrame(loop);
+    if (!ready || now - last < 33) return; last = now;
+    const w = Math.min(1254, Math.round(cv.clientWidth*devicePixelRatio));
+    if (!w) return;
+    if (cv.width !== w){ cv.width = cv.height = w; gl.viewport(0,0,w,w); }
+    // breath: ~4.2 s cycle, slightly quicker inhale than exhale
+    const ph = (now/1000 % 4.2) / 4.2, br = ph < .42 ? .5-.5*Math.cos(Math.PI*ph/.42) : .5+.5*Math.cos(Math.PI*(ph-.42)/.58);
+    gl.uniform1f(uT, now/1000); gl.uniform1f(uB, br); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    const lift = -1.2 * br * (cv.clientWidth/1254);     // eyes ride along with the head
+    lids.forEach(l => l.style.transform = `translateY(${lift.toFixed(2)}px)`);
+    // sparks from the flame tips
+    const sw = Math.round(sp.clientWidth*devicePixelRatio);
+    if (sp.width !== sw){ sp.width = sp.height = sw; }
+    const k = sw/1254; sctx.clearRect(0,0,sw,sw);
+    if (now > nextSpark){
+      const [px,py] = tips[Math.floor(Math.random()*tips.length)];
+      sparks.push({x:px+(Math.random()-.5)*14, y:py, vy:-(18+Math.random()*26), vx:(Math.random()-.5)*10, life:0, max:1.1+Math.random()*.9, r:1.4+Math.random()*1.6, ph:Math.random()*6});
+      nextSpark = now + 350 + Math.random()*900;
+    }
+    sctx.globalCompositeOperation = "lighter";
+    for (let i = sparks.length-1; i >= 0; i--){
+      const q = sparks[i]; q.life += .033;
+      if (q.life > q.max){ sparks.splice(i,1); continue; }
+      q.x += (q.vx + Math.sin(q.life*6+q.ph)*8)*.033; q.y += q.vy*.033;
+      const al = Math.sin(Math.PI*q.life/q.max)*.9;
+      const g = sctx.createRadialGradient(q.x*k,q.y*k,0,q.x*k,q.y*k,q.r*4*k);
+      g.addColorStop(0,`rgba(230,255,200,${al})`); g.addColorStop(.35,`rgba(120,255,110,${al*.6})`); g.addColorStop(1,"rgba(60,255,100,0)");
+      sctx.fillStyle = g; sctx.beginPath(); sctx.arc(q.x*k,q.y*k,q.r*4*k,0,7); sctx.fill();
+    }
+    sctx.globalCompositeOperation = "source-over";
+  };
+  img.complete && img.naturalWidth ? go() : img.addEventListener("load", go, {once:true});
+  flameRAF = requestAnimationFrame(loop);
+}
+/* blinking — random, natural timing */
+let blinkT = 0;
+function startBlinking(){
+  clearTimeout(blinkT);
+  const half = heroEl.querySelector('[data-lid="half"]'), closed = heroEl.querySelector('[data-lid="closed"]');
+  if (!half || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const set = (h, c) => { half.classList.toggle("on", h); closed.classList.toggle("on", c); };
+  const seq = [[1,0,45],[0,1,85],[1,0,55],[0,0,0]];
+  const blink = (done) => { let i = 0; const step = () => { const [h,c,ms] = seq[i++]; set(!!h, !!c); if (i < seq.length) setTimeout(step, ms); else done && done(); }; step(); };
+  const loop = () => {
+    blinkT = setTimeout(() => blink(() => { if (Math.random() < .18) setTimeout(() => blink(loop), 160); else loop(); }), 2600 + Math.random()*3800);
+  };
+  loop();
+}
+/* shooting stars — only in open sky, never across Torchy */
+let skyRAF = 0;
+function startShootingStars(){
+  cancelAnimationFrame(skyRAF);
+  const cv = heroEl.querySelector("canvas.sky"); if (!cv) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ctx = cv.getContext("2d");
+  // open-sky zones in % of image: [x0, y0, x1, y1]
+  const ZONES = [[20,8,80,15],[5,10,19,30],[76,7,97,36]];
+  let shots = [], nextAt = performance.now() + 900;
+  const fit = () => { cv.width = Math.round(cv.clientWidth*devicePixelRatio); cv.height = Math.round(cv.clientHeight*devicePixelRatio); };
+  fit(); addEventListener("resize", fit);
+  const spawn = () => {
+    const z = ZONES[Math.floor(Math.random()*ZONES.length)];
+    const dir = Math.random() < .5 ? 1 : -1;
+    const ang = (18 + Math.random()*22) * Math.PI/180;
+    shots.push({x:(z[0]+Math.random()*(z[2]-z[0]))/100, y:(z[1]+Math.random()*(z[3]-z[1])*.6)/100,
+      vx:Math.cos(ang)*dir, vy:Math.sin(ang), len:.07+Math.random()*.07, dist:.14+Math.random()*.12, t0:performance.now(), dur:900+Math.random()*700});
+  };
+  const clip = (W,H) => { ctx.beginPath(); ZONES.forEach(([a,b,c,d])=>ctx.rect(a/100*W,b/100*H,(c-a)/100*W,(d-b)/100*H)); ctx.clip(); };
+  const loop = (now) => {
+    if (cv.width !== Math.round(cv.clientWidth*devicePixelRatio)) fit();
+    const W = cv.width, H = cv.height;
+    if (!W){ skyRAF = requestAnimationFrame(loop); return; }
+    ctx.clearRect(0,0,W,H);
+    if (now > nextAt){ spawn(); nextAt = now + 2600 + Math.random()*5200; }
+    ctx.save(); clip(W,H);
+    shots = shots.filter(s => {
+      const p = (now - s.t0)/s.dur; if (p >= 1) return false;
+      const e = 1 - Math.pow(1-p, 2), hx = (s.x + s.vx*s.dist*e)*W, hy = (s.y + s.vy*s.dist*e)*H;
+      const L = s.len*W*Math.min(1, p*3), tx = hx - s.vx*L, ty = hy - s.vy*L;
+      const a = p < .15 ? p/.15 : 1 - (p-.15)/.85;
+      const g = ctx.createLinearGradient(tx,ty,hx,hy);
+      g.addColorStop(0,"rgba(180,255,200,0)"); g.addColorStop(1,`rgba(235,255,240,${a})`);
+      ctx.strokeStyle = g; ctx.lineWidth = 2*devicePixelRatio; ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(hx,hy); ctx.stroke();
+      ctx.fillStyle = `rgba(255,255,255,${a})`; ctx.shadowColor = "#9fffc0"; ctx.shadowBlur = 10*devicePixelRatio;
+      ctx.beginPath(); ctx.arc(hx,hy,1.6*devicePixelRatio,0,7); ctx.fill(); ctx.shadowBlur = 0;
+      return true;
+    });
+    ctx.restore();
+    skyRAF = requestAnimationFrame(loop);
+  };
+  skyRAF = requestAnimationFrame(loop);
+}
+// artwork that exists so far; levels without art keep showing the latest one
+const LEVEL_THUMBS = {1: "img/torchy-1-thumb.webp"};
+const thumbFor = (s) => { for (let k = s; k >= 1; k--) if (LEVEL_THUMBS[k]) return LEVEL_THUMBS[k]; return LEVEL_THUMBS[1]; };
+function showStage(s, celebrate){
+  if (s === shownStage) return;
+  heroEl.classList.add("photo");
+  heroEl.innerHTML = photoScene();
+  startBlinking(); startFlames();   // shooting stars removed: too much motion
+  if (celebrate && shownStage){
+    const l = document.getElementById("levelup"); l.classList.remove("go"); void l.offsetWidth; l.classList.add("go");
+    heroEl.querySelectorAll(".fl").forEach((f,i)=>{ f.parentNode.classList.add("flame-in"); f.parentNode.style.animationDelay = (i*.02)+"s"; f.parentNode.style.transformBox="fill-box"; f.parentNode.style.transformOrigin="50% 100%"; });
+  }
+  shownStage = s;
+}
+
+let curLevel = 1, curBurned = 0, targetLevel = 2;
+function levelInfo(s){
+  if (s === 1) return `<b>Level #1</b> · start`;
+  const need = THRESHOLDS[s-1], left = need - curBurned;
+  const name = s === 15 ? "Level #15 · The Mythical Mane (symbolic goal)" : `Level #${s}`;
+  if (s <= curLevel) return `<b>${name}</b> · ${fmt(need)} % burned · unlocked`;
+  return `<b>${name}</b> · ${fmt(need)} % burned` + (curBurned > 0 ? ` · ${fmt(left)} % to go` : "");
+}
+function setTarget(s){
+  targetLevel = s;
+  document.querySelectorAll("#ladder .card").forEach((c,i) => c.classList.toggle("target", i+1 === s));
+  document.querySelectorAll("#hbars div").forEach((b,i) => b.classList.toggle("target", i+2 === s));
+  document.querySelectorAll("#hlabels span").forEach((l,i) => l.classList.toggle("target", i+2 === s));
+  const txt = levelInfo(s);
+  document.getElementById("hcap").innerHTML = txt;
+}
+function buildLadder(current){
+  const lad = document.getElementById("ladder");
+  lad.innerHTML = "";
+  for (let s = 1; s <= 15; s++){
+    const unlocked = s <= current, isNext = s === current + 1, isFinal = s === 15;
+    const c = document.createElement("div");
+    c.className = "card rv" + (unlocked ? "" : " locked") + (s === current ? " current" : "") + (isNext ? " next" : "") + (isFinal ? " final" : "");
+    c.style.transitionDelay = ((s-1)%5)*.06 + "s";
+    const thr = s === 1 ? "Start" : fmt(THRESHOLDS[s-1]) + " %";
+    let pic, title, desc;
+    if (unlocked){
+      pic = `<span class="pic"><img src="${thumbFor(s)}" alt="Torchy, hair level ${s}" width="400" height="400" loading="lazy"></span>`;
+      title = `#${s}`; desc = s === 1 ? "Chrome dome. Little side flames." : "Unlocked.";
+    } else if (isNext){
+      pic = `<span class="pic"><img src="${thumbFor(current)}" alt="" width="400" height="400" loading="lazy"><b>?</b></span>`;
+      title = `#${s}`; desc = "Next look. Burn to reveal.";
+    } else if (isFinal){
+      pic = `<span class="pic mys"><b>?</b></span>`;
+      title = "The Mythical Mane"; desc = "A full head of flame. The legend.";
+    } else {
+      pic = `<span class="pic mys"><b>?</b></span>`;
+      title = `#${s}`; desc = "???";
+    }
+    c.innerHTML = pic + `<div class="n"><span>${title}</span><span class="t">${thr}</span></div><div class="d">${desc}</div>`;
+    c.addEventListener("click", () => setTarget(s));
+    lad.appendChild(c);
+  }
+}
+
+function buildHalving(current = 1){
+  const hb = document.getElementById("hbars"), hl = document.getElementById("hlabels"), cap = document.getElementById("hcap");
+  hb.innerHTML = ""; hl.innerHTML = "";
+  for (let s = 2; s <= 15; s++){
+    const b = document.createElement("div");
+    // every level doubles, so on a doubling scale each bar is one equal step taller
+    b.style.height = (8 + (s-2) * (92/13)) + "%";
+    b.style.transitionDelay = (s-2)*.06 + "s";
+    if (s <= current) b.classList.add("reached"); else if (s === current+1) b.classList.add("nextbar");
+    b.title = `Level #${s}: ${fmt(THRESHOLDS[s-1])} % burned` + (s === 15 ? " · symbolic goal" : "");
+    b.addEventListener("click", () => setTarget(s));
+    hb.appendChild(b);
+    const l = document.createElement("span"); l.textContent = s; l.style.cursor = "pointer";
+    l.addEventListener("click", () => setTarget(s)); hl.appendChild(l);
+  }
+}
+
+function countUp(el, to, ms=1600){
+  const t0 = performance.now();
+  const tick = (t) => {
+    const p = Math.min(1, (t - t0)/ms), e = 1 - Math.pow(1-p, 3);
+    el.textContent = fmt(to * e) + " %";
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+function applyBurn(burned, label){
+  const s = stageFor(burned);
+  countUp(document.getElementById("burned"), burned);
+  document.getElementById("stage").textContent = s;
+  const nextEl = document.getElementById("next"), bar = document.getElementById("bar");
+  if (s < 15){
+    const a = THRESHOLDS[s-1], b = THRESHOLDS[s];
+    const p = Math.max(0, Math.min(1, (burned - a) / (b - a)));
+    setTimeout(()=> bar.style.width = (p*100).toFixed(2) + "%", 300);
+    nextEl.innerHTML = `Next hair level (#${s+1}) at <b>${fmt(b)} %</b> burned`;
+  } else {
+    setTimeout(()=> bar.style.width = "100%", 300);
+    nextEl.innerHTML = `<b>The mythical mane is complete.</b>`;
+  }
+  document.getElementById("badge").textContent = label;
+  curLevel = s; curBurned = burned;
+  buildLadder(s);
+  buildHalving(s);
+  setTarget(Math.min(15, s + 1));
+  observeReveal();
+  showStage(s, false);
+}
+
+/* ---------- data ---------- */
+async function init(){
+  const q = new URLSearchParams(location.search).get("burned");
+  if (q !== null && !isNaN(parseFloat(q))){
+    applyBurn(Math.max(0, Math.min(100, parseFloat(q))), "Preview mode — not live data");
+    return;
+  }
+  let data = {burnedPercent: 0, live: false};
+  try { const r = await fetch("data/burn.json", {cache: "no-store"}); if (r.ok) data = await r.json(); } catch(e){}
+  if (data.contractAddress){
+    document.getElementById("ca-text").textContent = data.contractAddress;
+    document.getElementById("ca").classList.add("show");
+    document.getElementById("ca-copy").onclick = async (e) => {
+      try { await navigator.clipboard.writeText(data.contractAddress); e.target.textContent = "Copied!"; setTimeout(()=>e.target.textContent="Copy CA",1500);} catch(_){}
+    };
+  }
+  const label = data.live ? `Updated ${data.updated ?? ""}`.trim() : "Live burn tracker coming soon";
+  if (data.burnedTokens != null) document.getElementById("tokens").textContent =
+    Number(data.burnedTokens).toLocaleString("en-US", {notation: "compact", maximumFractionDigits: 2});
+  applyBurn(Number(data.burnedPercent) || 0, label);
+}
+
+/* ---------- reveal on scroll ---------- */
+let io;
+function observeReveal(){
+  io = io || new IntersectionObserver((es)=>es.forEach(e=>{ if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
+  document.querySelectorAll(".rv:not(.in), .hbars:not(.in)").forEach(el=>io.observe(el));
+}
+
+/* ---------- embers ---------- */
+(function embers(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = document.getElementById("embers"), x = c.getContext("2d");
+  let W, H, P = [];
+  const size = () => { W = c.width = innerWidth * devicePixelRatio; H = c.height = innerHeight * devicePixelRatio; c.style.width = innerWidth+"px"; c.style.height = innerHeight+"px"; };
+  size(); addEventListener("resize", size);
+  const n = innerWidth < 600 ? 28 : 60;
+  const spawn = (y) => ({x: Math.random()*W, y: y ?? H + 10, r: (Math.random()*2+.6)*devicePixelRatio, v: (Math.random()*.6+.25)*devicePixelRatio, w: Math.random()*Math.PI*2, a: Math.random()*.6+.2});
+  for (let i = 0; i < n; i++) P.push(spawn(Math.random()*H));
+  (function loop(){
+    x.clearRect(0,0,W,H);
+    P.forEach((p,i)=>{
+      p.y -= p.v; p.w += .02; p.x += Math.sin(p.w)*.4;
+      if (p.y < -10) P[i] = spawn();
+      x.beginPath(); x.arc(p.x,p.y,p.r,0,7);
+      x.fillStyle = `rgba(61,255,122,${p.a*(p.y/H)})`; x.shadowBlur = 8; x.shadowColor = "#3dff7a"; x.fill();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+
+observeReveal();
+init();
+</script>
+</body>
+</html>
